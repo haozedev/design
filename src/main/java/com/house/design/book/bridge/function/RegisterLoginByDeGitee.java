@@ -1,22 +1,23 @@
-package com.house.design.book.adapter;
+package com.house.design.book.bridge.function;
 
 import com.alibaba.fastjson.JSONObject;
+import com.house.design.book.bridge.abst.AbstractRegisterLoginFunc;
 import com.house.design.book.pojo.UserInfo;
-import com.house.design.book.service.UserService;
+import com.house.design.book.repo.UserRepository;
 import com.house.design.book.util.HttpClientUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**
- * @ClassName Login3rdAdapter
- * @Author haoZe
- * @Date 2023/12/4
- **/
-@Component
-public class Login3rdAdapter extends UserService implements Login3rdTarget{
+ * @author haoze
+ * @create 2023/12/5 16:47
+ * @description
+ */
+public class RegisterLoginByDeGitee extends AbstractRegisterLoginFunc implements RegisterLoginFuncInterface{
 
     @Value("${gitee.state}")
     private String giteeState;
@@ -27,8 +28,13 @@ public class Login3rdAdapter extends UserService implements Login3rdTarget{
     @Value("${gitee.user.prefix}")
     private String giteeUserPrefix;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
-    public String loginByGitee(String code, String state) {
+    public String login3rd(HttpServletRequest request) {
+        String code = request.getParameter("code");
+        String state = request.getParameter("state");
         if (!giteeState.equals(state)){
             throw new UnsupportedOperationException("Invalid state");
         }
@@ -42,31 +48,15 @@ public class Login3rdAdapter extends UserService implements Login3rdTarget{
         return autoRegister3rdAndLogin(userName,passWord);
     }
 
-    /**
-     *    复用父类的注册和登录方法
-     * @param userName
-     * @param passWord
-     * @return
-     */
     private String autoRegister3rdAndLogin(String userName,String passWord){
-        if (super.checkUserExists(userName)){
-            return super.login(userName,passWord);
+        if (checkUserExists(userName)){
+            return login(userName,passWord);
         }
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(userName);
         userInfo.setUserPassword(passWord);
         userInfo.setCreateDate(new Date());
-        super.register(userInfo);
-        return super.login(userName,passWord);
-    }
-
-    @Override
-    public String loginByWechat(String code, String state) {
-        return null;
-    }
-
-    @Override
-    public String loginByQQ(String code, String state) {
-        return null;
+        register(userInfo);
+        return login(userName,passWord);
     }
 }

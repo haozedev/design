@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
  * @description
  */
 public interface RegisterLoginFuncInterface {
-    public String login(String userName,String passWord);
+    public String login(String account,String passWord);
     public String register(UserInfo userInfo);
-    public String checkUserExists(String userName);
+    public boolean checkUserExists(String userName);
     public String login3rd(HttpServletRequest request);
 }
