@@ -7,7 +7,7 @@ package com.house.design.book.adapter;
  **/
 public interface Login3rdTarget {
 
-    public String loginByGite(String code,String state);
+    public String loginByGitee(String code,String state);
     public String loginByWechat(String code,String state);
     public String loginByQQ(String code,String state);
 
