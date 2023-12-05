@@ -1,11 +1,13 @@
 package com.house.design.book.bridge.function;
 
 import com.house.design.book.bridge.abst.AbstractRegisterLoginFunc;
+import com.house.design.book.bridge.abst.factory.RegisterLoginComponentFactory;
 import com.house.design.book.pojo.UserInfo;
 import com.house.design.book.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Date;
 
 /**
@@ -15,6 +17,7 @@ import java.util.Date;
  */
 @Component
 public class RegisterLoginByDefault extends AbstractRegisterLoginFunc implements RegisterLoginFuncInterface{
+
 
     @Autowired
     private UserRepository userRepository;
@@ -57,5 +60,10 @@ public class RegisterLoginByDefault extends AbstractRegisterLoginFunc implements
             return false;
         }
         return true;
+    }
+
+    @PostConstruct
+    private void initFuncMap(){
+        RegisterLoginComponentFactory.funcMap.put("Default",this);
     }
 }

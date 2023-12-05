@@ -2,6 +2,7 @@ package com.house.design.book.bridge.function;
 
 import com.alibaba.fastjson.JSONObject;
 import com.house.design.book.bridge.abst.AbstractRegisterLoginFunc;
+import com.house.design.book.bridge.abst.factory.RegisterLoginComponentFactory;
 import com.house.design.book.pojo.UserInfo;
 import com.house.design.book.repo.UserRepository;
 import com.house.design.book.util.HttpClientUtils;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
@@ -58,5 +60,10 @@ public class RegisterLoginByDeGitee extends AbstractRegisterLoginFunc implements
         userInfo.setCreateDate(new Date());
         register(userInfo);
         return login(userName,passWord);
+    }
+
+    @PostConstruct
+    private void initFuncMap(){
+        RegisterLoginComponentFactory.funcMap.put("GITEE",this);
     }
 }

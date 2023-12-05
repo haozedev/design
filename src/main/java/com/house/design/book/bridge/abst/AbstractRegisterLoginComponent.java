@@ -25,8 +25,8 @@ public abstract class AbstractRegisterLoginComponent {
         }
     }
 
-    protected abstract String login(String userName,String passWord);
-    protected abstract String register(UserInfo userInfo);
+    public abstract String login(String userName, String passWord);
+    public abstract String register(UserInfo userInfo);
     protected abstract boolean checkUserExists(String userName);
-    protected abstract String login3rd(HttpServletRequest request);
+    public abstract String login3rd(HttpServletRequest request);
 }
