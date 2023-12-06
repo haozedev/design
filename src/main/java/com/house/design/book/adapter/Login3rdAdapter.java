@@ -38,7 +38,7 @@ public class Login3rdAdapter extends UserService implements Login3rdTarget{
         //获取用户信息，username添加前缀GITEE@，密码保持与username一致，
         String userName = giteeUserPrefix.concat(String.valueOf(userInfoResponse.get("name")));
         String passWord = userName;
-        //自动注册和登录功能，此处体现了方法的服用
+        //自动注册和登录功能，此处体现了方法的复用
         return autoRegister3rdAndLogin(userName,passWord);
     }
 

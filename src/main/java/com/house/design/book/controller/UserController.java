@@ -18,10 +18,8 @@ import java.io.IOException;
  **/
 @RestController
 public class UserController {
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private Login3rdAdapter login3rdAdapter;
 
