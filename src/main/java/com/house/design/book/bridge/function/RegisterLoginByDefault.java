@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.Date;
 
 /**
  * @author haoze
@@ -16,54 +15,41 @@ import java.util.Date;
  * @description
  */
 @Component
-public class RegisterLoginByDefault extends AbstractRegisterLoginFunc implements RegisterLoginFuncInterface{
+public class RegisterLoginByDefault extends AbstractRegisterLoginFunc implements RegisterLoginFuncInterface {
 
 
     @Autowired
     private UserRepository userRepository;
-    @Override
-    public String login(String account,String passWord){
-        UserInfo userInfo = userRepository.findByUserNameAndUserPassword(account, passWord);
 
-        if (userInfo == null){
-            return "account / passWord ERROR!";
-        }
-        return "Login SUCCESS!";
+    @Override
+    public String login(String account, String passWord) {
+        return super.commonLogin(account, passWord, userRepository);
     }
 
     /**
-     *  注册
+     * 注册
+     *
      * @param userInfo
      * @return
      */
     @Override
-    public String register(UserInfo userInfo){
-        if(checkUserExists(userInfo.getUserName())){
-            throw new RuntimeException("User already registered.");
-        }
-        userInfo.setCreateDate(new Date());
-
-        userRepository.save(userInfo);
-        return "Register Success";
+    public String register(UserInfo userInfo) {
+        return super.register(userInfo, userRepository);
     }
 
     /**
-     *        检查name是否重复
+     * 检查name是否重复
+     *
      * @param userName
      * @return
      */
     @Override
-    public boolean checkUserExists(String userName){
-        UserInfo userInfo = userRepository.findByUserName(userName);
-
-        if (userInfo==null){
-            return false;
-        }
-        return true;
+    public boolean checkUserExists(String userName) {
+        return super.commonCheckUserExists(userName, userRepository);
     }
 
     @PostConstruct
-    private void initFuncMap(){
-        RegisterLoginComponentFactory.funcMap.put("Default",this);
+    private void initFuncMap() {
+        RegisterLoginComponentFactory.funcMap.put("Default", this);
     }
 }

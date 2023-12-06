@@ -19,7 +19,7 @@ import java.util.Date;
  * @create 2023/12/5 16:47
  * @description
  */
-public class RegisterLoginByDeGitee extends AbstractRegisterLoginFunc implements RegisterLoginFuncInterface{
+public abstract class RegisterLoginByDeGitee extends AbstractRegisterLoginFunc implements RegisterLoginFuncInterface{
 
     @Value("${gitee.state}")
     private String giteeState;
