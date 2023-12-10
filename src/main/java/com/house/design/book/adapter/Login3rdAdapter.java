@@ -3,7 +3,7 @@ package com.house.design.book.adapter;
 import com.alibaba.fastjson.JSONObject;
 import com.house.design.book.pojo.UserInfo;
 import com.house.design.book.service.UserService;
-import com.house.design.book.util.HttpClientUtils;
+import com.house.design.book.utils.HttpClientUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
