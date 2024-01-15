@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductComposite extends AbstractProductItem{
+public class ProductComposite extends AbstractProductItem implements Serializable {
     private int id;
     private int pid;
     private String name;
@@ -29,7 +30,7 @@ public class ProductComposite extends AbstractProductItem{
         child.add(item);
     }
     @Override
-    protected void delProductItem(AbstractProductItem item){
+    public void delProductItem(AbstractProductItem item){
         ProductComposite removeItem =(ProductComposite)item;
         Iterator iterator = child.iterator();
 

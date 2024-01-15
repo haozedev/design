@@ -7,11 +7,11 @@ package com.house.design.book.items.composite;
  **/
 public class AbstractProductItem {
     //增加商品类目
-    protected void addProductItem(AbstractProductItem item){
+    public void addProductItem(AbstractProductItem item){
         throw new UnsupportedOperationException("Not Support child add!");
     }
     //移除商品类目
-    protected void delProductItem(AbstractProductItem item){
+    public void delProductItem(AbstractProductItem item){
         throw new UnsupportedOperationException("Not Support child remove!");
     }
 }
